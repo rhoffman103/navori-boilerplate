@@ -4,6 +4,7 @@
   "description": "navori boilerplate generator",
   "main": "index.js",
   "scripts": {
+    "build": "env NODE_ENV=production webpack",
     "dev": "env NODE_ENV=development webpack",
     "start": "env NODE_ENV=development webpack serve --open",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,6 +26,7 @@
     "babel-loader": "^8.2.3",
     "copy-webpack-plugin": "^10.2.1",
     "css-loader": "^6.5.1",
+    "css-minimizer-webpack-plugin": "^3.4.1",
     "fork-ts-checker-notifier-webpack-plugin": "^4.0.0",
     "fork-ts-checker-webpack-plugin": "^6.5.0",
     "html-webpack-plugin": "^5.5.0",
