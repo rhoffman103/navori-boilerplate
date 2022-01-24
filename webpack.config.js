@@ -1,6 +1,9 @@
 const path = require("path");
+const CopyPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ForkTsCheckerNotifierWebpackPlugin = require("fork-ts-checker-notifier-webpack-plugin");
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 const mode = process.env.NODE_ENV || "development";
 const isProd = mode === "production";
@@ -13,8 +16,28 @@ const config = {
     }
   },
   plugins: [
+    new ForkTsCheckerWebpackPlugin({
+      // eslint: true
+    }),
+    new ForkTsCheckerNotifierWebpackPlugin({
+      title: "TypeScript",
+      excludeWarnings: false
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src', 'assets'),
+          to: path.resolve(__dirname, 'dist', 'assets'),
+          noErrorOnMissing: true,
+          globOptions: {
+            dot: true,
+            ignore: ["**/.gitkeep"]
+          },
+        },
+      ],
+    }),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
+      filename: "[name].css",
     }),
     new HtmlWebpackPlugin({
       inject: true,
@@ -55,16 +78,16 @@ const config = {
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: 'asset/resource',
+        type: "asset/resource",
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        type: 'asset/resource',
+        type: "asset/resource",
       },
     ]
   },
   resolve: {
-    extensions: ['.ts', '.js'],
+    extensions: [".ts", ".js"],
   },
   output: {
     filename: "[name].[contenthash].bundle.js",
@@ -86,7 +109,7 @@ const config = {
         },
       },
     },
-    // minimize: true,
+    minimize: isProd,
   },
 };
 
