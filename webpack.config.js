@@ -143,6 +143,10 @@ const config = {
 
 if (!isProd) {
   config.devtool = "inline-source-map"
+  config.devServer = {
+    static: "./dist",
+    hot: true,
+  };
 }
 
 module.exports = config;
