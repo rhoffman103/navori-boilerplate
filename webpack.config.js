@@ -24,12 +24,20 @@ const config = {
   module: {
     rules: [
       {
+        test: /\.ts$/,
+        use: {
+          loader: "ts-loader",
+          options: { transpileOnly: true }
+        },
+        exclude: /node_modules/,
+      },
+      {
         test: /\.m?js$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
           options: {
-            presets: ['@babel/preset-env']
+            "presets": ["@babel/preset-env"]
           }
         }
       },
@@ -46,6 +54,9 @@ const config = {
         ],
       }
     ]
+  },
+  resolve: {
+    extensions: ['.ts', '.js'],
   },
   output: {
     filename: "[name].[contenthash].bundle.js",
@@ -67,7 +78,7 @@ const config = {
         },
       },
     },
-    minimize: true,
+    // minimize: true,
   },
 };
 
